@@ -53,7 +53,7 @@ $ npm run test
 # test coverage
 $ npm run test:cov
 ```
-# End to end tests
+## End to end tests
 *e2e tests only work with a running database as defined by the env file with an empty user table*
 ```bash
 $ npm run test:e2e
