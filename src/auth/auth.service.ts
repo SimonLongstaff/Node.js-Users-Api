@@ -11,16 +11,14 @@ export class AuthService {
   ) {}
 
   async validateUser(signInDto: SignInDto): Promise<any> {
-    const zeroUserCheck = await this.usersService.findAll();
-    if (
-      zeroUserCheck.length === 0 &&
-      signInDto.username === 'admin' &&
-      signInDto.password === 'admin'
-    ) {
-      const payload = { username: 'admin', sub: 'admin' };
-      return {
-        access_token: await this.jwtService.signAsync(payload),
-      };
+    if (signInDto.username === 'admin' && signInDto.password === 'admin') {
+      const zeroUserCheck = await this.usersService.findAll();
+      if (zeroUserCheck.length === 0) {
+        const payload = { username: 'admin', sub: 'admin' };
+        return {
+          access_token: await this.jwtService.signAsync(payload),
+        };
+      }
     }
 
     const user = await this.usersService.findByUsername(signInDto.username);
