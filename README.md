@@ -1,7 +1,14 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+REST Api for a user management system. 
+- The api allows users to be created, updated, deleted and retrieved. 
+- The api also allows users to be authenticated using JWT tokens.
+- The api is written in Typescript and uses NestJS as the framework.
+- The database used is Postgres and TypeORM is used as the ORM.
+- The api is tested using Jest and Supertest.
+- The api is linted using ESLint and Prettier.
+- Class-validator is used for input validation.
 
 ## Installation
 
