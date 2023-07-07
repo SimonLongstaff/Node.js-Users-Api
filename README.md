@@ -45,6 +45,20 @@ ADMIN_PASSWORD=admin
 
 You will also need to create a Postgres database with the name specified in the `.env` file.
 
+The database will need to have the following table:
+
+```SQL
+create table "user"
+(
+    id       uuid         not null
+        primary key,
+    name     varchar(100) not null,
+    email    varchar(100) not null,
+    password varchar(100) not null
+);
+
+```
+
 ## Running the App
 
 To run the app in development mode, use the following command:
