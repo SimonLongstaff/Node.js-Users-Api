@@ -18,7 +18,7 @@ This is a REST API for a user management system. It allows users to be created, 
 
 To install the necessary dependencies, run the following command:
 
-```
+```BASH
 npm install
 ```
 
@@ -26,7 +26,7 @@ npm install
 
 To run this app, you will need to create a `.env` file in the root directory with the following variables:
 
-```
+```DOTENV
 # Port the app will run on, defaults to 3000 if not set
 PORT=5555
 # Database connection variables
@@ -49,28 +49,29 @@ You will also need to create a Postgres database with the name specified in the 
 
 To run the app in development mode, use the following command:
 
-```
+```BASH
 npm run start
 ```
 
 To run the app in watch mode, use the following command:
 
-```
+```BASH
 npm run start:dev
 ```
 
 To run the app in production mode, use the following commands:
 
-```
+```BASH
 npm run build
 npm run start:prod
 ```
 
 ## Authentication
+### Admin Authentication
 
 To authenticate with the API, send a POST request to the `/auth/login` endpoint with the following JSON payload:
 
-```
+```JSON
 {
   "username": "admin",
   "password": "<ADMIN_PASSWORD>"
@@ -81,12 +82,21 @@ Replace `<ADMIN_PASSWORD>` with the value of the `ADMIN_PASSWORD` variable in yo
 
 The API will respond with a JWT token that can be used to authenticate subsequent requests. Include the token in the `Authorization` header of your requests as follows:
 
-```
+```HTTP
 Authorization: Bearer <JWT_TOKEN>
 ```
 
 Replace `<JWT_TOKEN>` with the JWT token returned by the `/auth/login` endpoint.
 
+### User Authentication
+If the database has some user data in it, you can authenticate as a user by sending a POST request to the `/auth/login` endpoint with the following JSON payload:
+
+```JSON
+{
+  "username": "<USERNAME>",
+  "password": "<PASSWORD>"
+}
+```
 
 ## Using the App
 Once the app is running you can use the following endpoints to interact with it:
