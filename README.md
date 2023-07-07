@@ -33,6 +33,8 @@ DB_DATABASE=postgres
 JWT_SECRET_KEY=secret
 # JWT token expiration time in seconds
 JWT_EXPIRATION_TIME=3600s
+# Admin password for JWT token generation
+ADMIN_PASSWORD=admin
 
 ```
 
@@ -51,6 +53,26 @@ $ npm run build
 $ npm run start:prod
 ```
 
+## Authentication
+The api uses JWT tokens for authentication. It will authenticate based on the user data in the database.
+Alternatively you can authenticate with the username 'admin' and the admin password set in the .env file to get a JWT token.
+
+
+## Using the App
+Once the app is running you can use the following endpoints to interact with it:
+
+ - /API - Swagger documentation for the api
+ - /users - GET - Get all users
+ - /users - POST - Create a new user
+ - /users/:id - GET - Get a user by id
+ - /users/:id - PUT - Update a user by id
+ - /users/:id - DELETE - Delete a user by id
+ - /auth/login - POST - Login and get a JWT token
+
+
+## Swagger Documentation
+The swagger documentation can be found at the /API endpoint once the app is running.
+
 ## Test
 
 ```bash
@@ -60,8 +82,9 @@ $ npm run test
 # test coverage
 $ npm run test:cov
 ```
-## End to end tests
-*e2e tests only work with a running database as defined by the env file with an empty user table*
+## End-to-end tests
+End-to-end tests are run using Jest and Supertest. The tests will run on the database specified in the .env file.
+It is recommended to use a test database for this.
 ```bash
 $ npm run test:e2e
 ```

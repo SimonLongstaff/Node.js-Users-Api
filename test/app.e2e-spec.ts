@@ -2,15 +2,15 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
+import * as process from 'process';
 
-/**
- * E2E tests for the app
- * They only function when the app is provided with a blank database
- */
 describe('AppController (e2e)', () => {
   let app: INestApplication;
+  let adminPassword: string;
 
   beforeEach(async () => {
+    adminPassword = process.env.ADMIN_PASSWORD;
+
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
@@ -28,7 +28,7 @@ describe('AppController (e2e)', () => {
       .post('/auth/login')
       .send({
         username: 'admin',
-        password: 'admin',
+        password: adminPassword,
       })
       .expect(200);
 
@@ -58,7 +58,7 @@ describe('AppController (e2e)', () => {
       .send({
         username: 'admin',
       })
-      .expect(500);
+      .expect(400);
   });
 
   it('/auth/login (POST) - invalid username', () => {
@@ -66,7 +66,7 @@ describe('AppController (e2e)', () => {
       .post('/auth/login')
       .send({
         username: 'wrong',
-        password: 'admin',
+        password: adminPassword,
       })
       .expect(401);
   });
@@ -80,7 +80,7 @@ describe('AppController (e2e)', () => {
       .post('/auth/login')
       .send({
         username: 'admin',
-        password: 'admin',
+        password: adminPassword,
       })
       .expect(200);
 
@@ -120,7 +120,7 @@ describe('AppController (e2e)', () => {
         .post('/auth/login')
         .send({
           username: 'admin',
-          password: 'admin',
+          password: adminPassword,
         })
         .expect(200);
 
