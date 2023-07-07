@@ -1,26 +1,32 @@
+# User Management System API
 
-## Description
+This is a REST API for a user management system. It allows users to be created, updated, deleted, and retrieved. The API also allows users to be authenticated using JWT tokens.
 
-REST Api for a user management system. 
-- The api allows users to be created, updated, deleted and retrieved. 
-- The api also allows users to be authenticated using JWT tokens.
-- The api is written in Typescript and uses NestJS as the framework.
-- The database used is Postgres and TypeORM is used as the ORM.
-- The api is tested using Jest and Supertest.
-- The api is linted using ESLint and Prettier.
-- Class-validator is used for input validation.
+## Technologies Used
+
+- Typescript
+- NestJS
+- Postgres
+- TypeORM
+- Jest
+- Supertest
+- ESLint
+- Prettier
+- Class-validator
 
 ## Installation
 
-```bash
-$ npm install
+To install the necessary dependencies, run the following command:
+
+```
+npm install
 ```
 
 ## Setup
 
-To run this app you will need to create a .env file in the root directory with the following variables:
+To run this app, you will need to create a `.env` file in the root directory with the following variables:
 
-```DOTENV
+```
 # Port the app will run on, defaults to 3000 if not set
 PORT=5555
 # Database connection variables
@@ -35,27 +41,51 @@ JWT_SECRET_KEY=secret
 JWT_EXPIRATION_TIME=3600s
 # Admin password for JWT token generation
 ADMIN_PASSWORD=admin
-
 ```
 
+You will also need to create a Postgres database with the name specified in the `.env` file.
 
-## Running the app
+## Running the App
 
-```bash
-# development
-$ npm run start
+To run the app in development mode, use the following command:
 
-# watch mode
-$ npm run start:dev
+```
+npm run start
+```
 
-# production mode
-$ npm run build 
-$ npm run start:prod
+To run the app in watch mode, use the following command:
+
+```
+npm run start:dev
+```
+
+To run the app in production mode, use the following commands:
+
+```
+npm run build
+npm run start:prod
 ```
 
 ## Authentication
-The api uses JWT tokens for authentication. It will authenticate based on the user data in the database.
-Alternatively you can authenticate with the username 'admin' and the admin password set in the .env file to get a JWT token.
+
+To authenticate with the API, send a POST request to the `/auth/login` endpoint with the following JSON payload:
+
+```
+{
+  "username": "admin",
+  "password": "<ADMIN_PASSWORD>"
+}
+```
+
+Replace `<ADMIN_PASSWORD>` with the value of the `ADMIN_PASSWORD` variable in your `.env` file.
+
+The API will respond with a JWT token that can be used to authenticate subsequent requests. Include the token in the `Authorization` header of your requests as follows:
+
+```
+Authorization: Bearer <JWT_TOKEN>
+```
+
+Replace `<JWT_TOKEN>` with the JWT token returned by the `/auth/login` endpoint.
 
 
 ## Using the App
