@@ -3,6 +3,7 @@ import { AuthService } from './auth.service';
 import { UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
 
 describe('AuthService', () => {
   let authService: AuthService;
@@ -22,6 +23,12 @@ describe('AuthService', () => {
         {
           provide: JwtService,
           useValue: {},
+        },
+        {
+          provide: ConfigService,
+          useValue: {
+            get: jest.fn(() => 'adminPassword'),
+          },
         },
       ],
     }).compile();
@@ -53,7 +60,7 @@ describe('AuthService', () => {
     });
 
     it('should return a token when there are no users and given admin credentials', async () => {
-      const mockUser = { username: 'admin', password: 'admin' };
+      const mockUser = { username: 'admin', password: 'adminPassword' };
       usersService.findAll = jest.fn().mockResolvedValue([]);
       jwtService.signAsync = jest.fn().mockResolvedValue('mocktoken');
 
